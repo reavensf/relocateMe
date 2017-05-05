@@ -28,7 +28,7 @@ var renderLocationInfo = function(){
 
 
 var renderJobs = function(){
-    var rootUrl             = 'http://api.indeed.com/ads/apisearch?publisher=4641674221339880';
+    var rootUrl             = 'https://api.indeed.com/ads/apisearch?publisher=4641674221339880';
     var jobTerm             = $('.jobField').val();
     var stateTerm           = $('.stateField').val();
     var cityTerm            = $('.cityField').val();
