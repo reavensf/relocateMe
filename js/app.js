@@ -39,14 +39,20 @@ var renderJobs = function(){
     $.getJSON(indeedSearchUrl, function(indeed){
         // console.log(indeed.results[0].jobtitle);
         
-        $('.jobsBlock ul').html(indeed.results.map(function(job, index){
+        $('.jobsBlock').html(indeed.results.map(function(job, index){
             
-            return      '<li>' + 
+            return      '<div class="jobPost">' + 
+                        '<p>' +
                         '<a href="' + 
                         indeed.results[index].url + 
                         '" target="_blank">' + 
                         indeed.results[index].jobtitle + 
-                        '</a></li>';
+                        '</a>' + ' - ' +
+                        '<strong>' + indeed.results[index].company  + '</strong> <span>(' + indeed.results[index].formattedRelativeTime + ')</span><br>' +
+                        indeed.results[index].formattedLocation + '<br>' +
+                        indeed.results[index].snippet + '<br>' +
+                        '</p>' +
+                        '</div>';
         }));
     });
 }
