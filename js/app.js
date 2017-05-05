@@ -1,34 +1,31 @@
+// var renderLocationInfo = function(){
+//     var teleportRootUrl     = 'https://api.teleport.org/api/cities/'
+//     var jobTerm             = $('.jobField').val();
+//     var stateTerm           = '%2C%20' + $('.stateField').val();
+//     var cityTerm            = $('.cityField').val();
+//     var searchCities        = '?search=' + cityTerm;
+//     var teleportSearchUrl   = teleportRootUrl + searchCities + stateTerm;
 
 
+//     // var qualityOfLife
 
-var renderLocationInfo = function(){
-    var teleportRootUrl     = 'https://api.teleport.org/api/cities/'
-    var jobTerm             = $('.jobField').val();
-    var stateTerm           = '%2C%20' + $('.stateField').val();
-    var cityTerm            = $('.cityField').val();
-    var searchCities        = '?search=' + cityTerm;
-    var teleportSearchUrl   = teleportRootUrl + searchCities + stateTerm;
+//     $.getJSON(teleportSearchUrl, function(data){
+//         console.log(data);
 
+//         var infoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
+//         console.log(infoLink);
 
-    // var qualityOfLife
-
-    $.getJSON(teleportSearchUrl, function(data){
-        console.log(data);
-
-        var infoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
-        console.log(infoLink);
-
-        $.getJSON(infoLink, function(uaObj){ 
-            var urbanArea = uaObj._links["city:urban_area"].href;
-            console.log(urbanArea); 
-        });
-    });
-}
+//         $.getJSON(infoLink, function(uaObj){ 
+//             var urbanArea = uaObj._links["city:urban_area"].href;
+//             console.log(urbanArea); 
+//         });
+//     });
+// }
 
 
 
 var renderJobs = function(){
-    var rootUrl             = 'https://api.indeed.com/ads/apisearch?publisher=4641674221339880';
+    var rootUrl             = 'http://api.indeed.com/ads/apisearch?publisher=4641674221339880';
     var jobTerm             = $('.jobField').val();
     var stateTerm           = $('.stateField').val();
     var cityTerm            = $('.cityField').val();
@@ -60,7 +57,12 @@ var renderJobs = function(){
         event.preventDefault();
 
         console.log("submit");
-        renderJobs();
-        renderLocationInfo();
+
+            $('.jobsBlock').show();
+            $('.cityStateInfoBlock').show();
+            renderJobs();
+            // renderLocationInfo();
+        if($('.jobsBlock').css('display') === 'none'){
+        }
      });
  });

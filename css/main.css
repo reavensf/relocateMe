@@ -1,0 +1,130 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9f8f7;
+    font-family: 'Roboto', sans-serif;
+}
+
+.hidden{
+    display: none;
+}
+
+.left{
+    float: left;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.greenText{
+    color: green;
+}
+
+.yellowText{
+    color: gold;
+}
+
+button, input[type="text"] {
+    padding: 10px;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#shopping-list-item {
+    width: 250px;
+}
+
+.wrapper {
+    background-color: #fff;
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 40px;
+    position: relative;
+}
+
+.jobsBlock, .cityStateInfoBlock{
+    width: 50%;
+}
+
+.jobsForm{
+    margin: 0 auto 50px;
+    width: 670px;
+}
+
+h1{
+    margin: 0 0 25px 0;
+}
+
+h2{
+    font-size: 2em;
+    line-height: 1.5em;
+}
+
+h3{
+    font-size: 1.5em;
+}
+
+p{
+    line-height: 1.3em;
+}
+
+img{
+    display: block;
+}
+
+.message{
+    font-size: 18px;
+    text-align: center;
+}
+
+.message.error{
+    color: red;
+}
+.message.correct{
+    color: green;
+}
+
+.inputWrapper{
+    margin-bottom: 15px;
+}
+.inputWrapper input{
+    margin-right: 10px
+}
+.progress{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+.progress p{
+    font-size: 14px;
+    text-align: right;
+    margin: 0;
+} 
+
+.buttonWrapper{
+    clear: both;
+    margin-top: 30px;
+    overflow: hidden;
+}
+
+input[type=submit], input[type=reset]{
+    cursor: pointer;
+    float: right;
+    padding: 10px;
+}
+
+.results{
+    font-size: 50px;
+    text-align: center;
+    line-height: 1em;
+}
