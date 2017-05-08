@@ -25,7 +25,7 @@
 
 
 var renderJobs = function(){
-    var rootUrl             = 'http://api.indeed.com/ads/apisearch?publisher=4641674221339880';
+    var rootUrl             = 'https://indeed-indeed.p.mashape.com/apisearch?publisher=4641674221339880';
     var jobTerm             = $('.jobField').val();
     var stateTerm           = $('.stateField').val();
     var cityTerm            = $('.cityField').val();
@@ -35,25 +35,30 @@ var renderJobs = function(){
     var limit               = '&limit=25'
     var indeedSearchUrl     = rootUrl + searchTerm + cityState + requiredParams + limit;
 
-
-    $.getJSON(indeedSearchUrl, function(indeed){
-        // console.log(indeed.results[0].jobtitle);
-        
-        $('.jobsBlock').html(indeed.results.map(function(job, index){
-            
-            return      '<div class="jobPost">' + 
-                        '<p>' +
-                        '<a href="' + 
-                        indeed.results[index].url + 
-                        '" target="_blank">' + 
-                        indeed.results[index].jobtitle + 
-                        '</a>' + ' - ' +
-                        '<strong>' + indeed.results[index].company  + '</strong> <span>(' + indeed.results[index].formattedRelativeTime + ')</span><br>' +
-                        indeed.results[index].formattedLocation + '<br>' +
-                        indeed.results[index].snippet + '<br>' +
-                        '</p>' +
-                        '</div>';
-        }));
+    $.ajax({
+        beforeSend: function(request) {
+            request.setRequestHeader("X-Mashape-Key", 'rs6ki2x7VImshpEMNL1WrxVUeDPRp1klZZ2jsn6tXa0K7I8fOT');
+        },
+        dataType: "json",
+        url: indeedSearchUrl,
+        success: function(data) {
+            console.log(data);
+            $('.jobsBlock').html(data.results.map(function(job, index){
+                
+                return      '<div class="jobPost">' + 
+                            '<p>' +
+                            '<a href="' + 
+                            data.results[index].url + 
+                            '" target="_blank">' + 
+                            data.results[index].jobtitle + 
+                            '</a>' + ' - ' +
+                            '<strong>' + data.results[index].company  + '</strong> <span>(' + data.results[index].formattedRelativeTime + ')</span><br>' +
+                            data.results[index].formattedLocation + '<br>' +
+                            data.results[index].snippet + '<br>' +
+                            '</p>' +
+                            '</div>';
+            }));
+        }
     });
 }
 
