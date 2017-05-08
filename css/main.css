@@ -36,17 +36,6 @@ strong{
     font-weight: bold;
 }
 
-button, input[type="text"] {
-    padding: 10px;
-}
-
-button:hover {
-    cursor: pointer;
-}
-
-#shopping-list-item {
-    width: 250px;
-}
 
 .wrapper {
     background-color: #fff;
@@ -63,6 +52,14 @@ button:hover {
 .jobsForm{
     margin: 0 auto 50px;
     width: 670px;
+}
+
+button, input[type="text"] {
+  padding: 10px;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 h1{
@@ -82,55 +79,61 @@ p{
     line-height: 1.3em;
 }
 
-img{
-    display: block;
+.scoreMeterBkg{
+    background-color: #eee;
 }
 
-.message{
-    font-size: 18px;
-    text-align: center;
-}
-
-.message.error{
-    color: red;
-}
-.message.correct{
-    color: green;
-}
-
-.inputWrapper{
-    margin-bottom: 15px;
-}
-.inputWrapper input{
-    margin-right: 10px
-}
-.progress{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-.progress p{
-    font-size: 14px;
-    text-align: right;
-    margin: 0;
-} 
-
-.buttonWrapper{
-    clear: both;
-    margin-top: 30px;
+.scoreMeter{
     overflow: hidden;
 }
 
-input[type=submit], input[type=reset]{
-    cursor: pointer;
-    float: right;
-    padding: 10px;
+.score{
+    color: #fff;
+    font-weight: bold;
+    font-size: 24px;
+    font-style: italic;
+    line-height: 0.7em;
+    margin: 0;
 }
 
-.results{
-    font-size: 50px;
-    text-align: center;
-    line-height: 1em;
+.tenPercent{
+    width: 10%;
+}
+
+.twentyPercent{
+    width: 20%;
+}
+
+.thirtyPercent{
+    width: 30%;
+}
+
+.fourtyPercent{
+    width: 40%;
+}
+
+.fiftyPercent{
+    width: 50%;
+}
+
+.sixtyPercent{
+    width: 60%;
+}
+
+.seventyPercent{
+    width: 70%;
+}
+
+.eightyPercent{
+    width: 80%;
+}
+
+.ninetyPercent{
+    width: 90%;
+}
+
+.oneHundredPercent{
+    width: 100%;
 }
 
 @media(max-width: 1620px){

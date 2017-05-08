@@ -7,14 +7,105 @@ var renderLocationInfo = function(){
     var teleportSearchUrl   = teleportRootUrl + searchCities + stateTerm;
 
     $.getJSON(teleportSearchUrl, function(data){
-        console.log(data);
+        var cityInfoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
+        console.log(cityInfoLink);
 
-        var infoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
-        console.log(infoLink);
+        $.getJSON(cityInfoLink, function(infoObj){ 
+            console.log(infoObj); 
+            var urbanArea = infoObj._links["city:urban_area"].href;
 
-        $.getJSON(infoLink, function(uaObj){ 
-            var urbanArea = uaObj._links["city:urban_area"].href;
-            console.log(urbanArea); 
+            $.getJSON(urbanArea, function(urbanAreaObj){
+                console.log(urbanAreaObj); 
+                $('.cityStateInfoBlock h2 .cityName').html(urbanAreaObj.full_name);
+
+                var uaScores = urbanAreaObj._links["ua:scores"].href;
+                $.getJSON(uaScores, function(scoresOdj){
+                    $('.summary').html(scoresOdj.summary);
+
+                    $('.qualityOfLifeScores').html(scoresOdj.categories.map(function(scoreCat, index){
+                        var score = Math.round(scoresOdj.categories[index].score_out_of_10);
+                        console.log(score);
+
+                        if(score === 1){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter tenPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 2){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter twentyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 3){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter thirtyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 4){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter fourtyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 5){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter fiftyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 6){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter sixtyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 7){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter seventyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 8) {
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter eightyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 9){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter ninetyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        } else if (score === 10){
+                            return      '<div class="scoreCategory">' +
+                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter oneHundredPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<p class="score">' + score + '</p>' +
+                                        '</div></div>';
+                        }
+                    }));
+                });
+
+                var uaDetails = urbanAreaObj._links["ua:details"].href;
+                $.getJSON(uaDetails, function(detailsOdj){
+
+                });
+
+                var uaImages = urbanAreaObj._links["ua:images"].href;
+                $.getJSON(uaImages, function(imagesOdj){
+
+                });
+
+                var uaSalaries = urbanAreaObj._links["ua:salaries"].href;
+                $.getJSON(uaSalaries, function(salariesOdj){
+
+                });
+
+            });
         });
     });
 }
@@ -39,8 +130,8 @@ var renderJobs = function(){
         dataType: "json",
         url: indeedSearchUrl,
         success: function(data) {
-            console.log(data);
-            $('.jobsBlock').append(data.results.map(function(job, index){
+            // console.log(data);
+            $('.jobsBlock .jobResults').html(data.results.map(function(job, index){
                 
                 return      '<div class="jobPost">' + 
                             '<p>' +
@@ -69,8 +160,6 @@ var renderJobs = function(){
             $('.jobsBlock').show();
             $('.cityStateInfoBlock').show();
             renderJobs();
-            // renderLocationInfo();
-        if($('.jobsBlock').css('display') === 'none'){
-        }
+            renderLocationInfo();
      });
  });
