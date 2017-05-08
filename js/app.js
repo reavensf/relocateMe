@@ -1,26 +1,23 @@
-// var renderLocationInfo = function(){
-//     var teleportRootUrl     = 'https://api.teleport.org/api/cities/'
-//     var jobTerm             = $('.jobField').val();
-//     var stateTerm           = '%2C%20' + $('.stateField').val();
-//     var cityTerm            = $('.cityField').val();
-//     var searchCities        = '?search=' + cityTerm;
-//     var teleportSearchUrl   = teleportRootUrl + searchCities + stateTerm;
+var renderLocationInfo = function(){
+    var teleportRootUrl     = 'https://api.teleport.org/api/cities/'
+    var jobTerm             = $('.jobField').val();
+    var stateTerm           = '%2C%20' + $('.stateField').val();
+    var cityTerm            = $('.cityField').val();
+    var searchCities        = '?search=' + cityTerm;
+    var teleportSearchUrl   = teleportRootUrl + searchCities + stateTerm;
 
+    $.getJSON(teleportSearchUrl, function(data){
+        console.log(data);
 
-//     // var qualityOfLife
+        var infoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
+        console.log(infoLink);
 
-//     $.getJSON(teleportSearchUrl, function(data){
-//         console.log(data);
-
-//         var infoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
-//         console.log(infoLink);
-
-//         $.getJSON(infoLink, function(uaObj){ 
-//             var urbanArea = uaObj._links["city:urban_area"].href;
-//             console.log(urbanArea); 
-//         });
-//     });
-// }
+        $.getJSON(infoLink, function(uaObj){ 
+            var urbanArea = uaObj._links["city:urban_area"].href;
+            console.log(urbanArea); 
+        });
+    });
+}
 
 
 
@@ -43,7 +40,7 @@ var renderJobs = function(){
         url: indeedSearchUrl,
         success: function(data) {
             console.log(data);
-            $('.jobsBlock').html(data.results.map(function(job, index){
+            $('.jobsBlock').append(data.results.map(function(job, index){
                 
                 return      '<div class="jobPost">' + 
                             '<p>' +
