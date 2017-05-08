@@ -8,14 +8,14 @@ var renderLocationInfo = function(){
 
     $.getJSON(teleportSearchUrl, function(data){
         var cityInfoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
-        console.log(cityInfoLink);
+        // console.log(cityInfoLink);
 
         $.getJSON(cityInfoLink, function(infoObj){ 
-            console.log(infoObj); 
+            // console.log(infoObj); 
             var urbanArea = infoObj._links["city:urban_area"].href;
 
             $.getJSON(urbanArea, function(urbanAreaObj){
-                console.log(urbanAreaObj); 
+                // console.log(urbanAreaObj); 
                 $('.cityStateInfoBlock h2 .cityName').html(urbanAreaObj.full_name);
 
                 var uaScores = urbanAreaObj._links["ua:scores"].href;
@@ -24,7 +24,6 @@ var renderLocationInfo = function(){
 
                     $('.qualityOfLifeScores').html(scoresOdj.categories.map(function(scoreCat, index){
                         var score = Math.round(scoresOdj.categories[index].score_out_of_10);
-                        console.log(score);
 
                         if(score === 1){
                             return      '<div class="scoreCategory">' +
@@ -96,8 +95,10 @@ var renderLocationInfo = function(){
                 });
 
                 var uaImages = urbanAreaObj._links["ua:images"].href;
-                $.getJSON(uaImages, function(imagesOdj){
-
+                $.getJSON(uaImages, function(imagesOdj, index){
+                    console.log(imagesOdj.photos[0].image.mobile);
+                    
+                    // $('body').css('background-image', 'url(' + imagesOdj.photos[0].image.mobile + ')');
                 });
 
                 var uaSalaries = urbanAreaObj._links["ua:salaries"].href;
