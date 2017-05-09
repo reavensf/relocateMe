@@ -18,6 +18,10 @@ body {
     float: left;
 }
 
+.right{
+    float: right;
+}
+
 .clearfix:after {
     visibility: hidden;
     display: block;
@@ -111,7 +115,7 @@ p{
     width: 30%;
 }
 
-.fourtyPercent{
+.fortyPercent{
     width: 40%;
 }
 

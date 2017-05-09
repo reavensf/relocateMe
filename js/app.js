@@ -8,14 +8,11 @@ var renderLocationInfo = function(){
 
     $.getJSON(teleportSearchUrl, function(data){
         var cityInfoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
-        // console.log(cityInfoLink);
 
         $.getJSON(cityInfoLink, function(infoObj){ 
-            // console.log(infoObj); 
             var urbanArea = infoObj._links["city:urban_area"].href;
 
             $.getJSON(urbanArea, function(urbanAreaObj){
-                // console.log(urbanAreaObj); 
                 $('.cityStateInfoBlock h2 .cityName').html(urbanAreaObj.full_name);
 
                 var uaScores = urbanAreaObj._links["ua:scores"].href;
@@ -24,87 +21,137 @@ var renderLocationInfo = function(){
 
                     $('.qualityOfLifeScores').html(scoresOdj.categories.map(function(scoreCat, index){
                         var score = Math.round(scoresOdj.categories[index].score_out_of_10);
+                        var scoreClass = getPercentClass(score);
 
-                        if(score === 1){
                             return      '<div class="scoreCategory">' +
                                         '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter tenPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter ' + scoreClass +' " style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
                                         '<p class="score">' + score + '</p>' +
                                         '</div></div>';
-                        } else if (score === 2){
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter twentyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        } else if (score === 3){
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter thirtyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        } else if (score === 4){
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter fourtyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        } else if (score === 5){
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter fiftyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        } else if (score === 6){
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter sixtyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        } else if (score === 7){
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter seventyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        } else if (score === 8) {
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter eightyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        } else if (score === 9){
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter ninetyPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        } else if (score === 10){
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter oneHundredPercent" style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
-                                        '<p class="score">' + score + '</p>' +
-                                        '</div></div>';
-                        }
                     }));
                 });
 
+                var getPercentClass = function(score){
+                    switch (score) {
+                        case 1:
+                            return "tenPercent"
+                        case 2:
+                            return "twentyPercent"
+                        case 3:
+                            return "thirtyPercent"
+                        case 4:
+                            return "fortyPercent"
+                        case 5:
+                            return "fiftyPercent"
+                        case 6:
+                            return "sixtyPercent"
+                        case 7:
+                            return "seventyPercent"
+                        case 8:
+                            return "eightyPercent"
+                        case 9:
+                            return "ninetyPercent"
+                        case 10:
+                            return "oneHundredPercent"
+                    }
+                }
                 var uaDetails = urbanAreaObj._links["ua:details"].href;
                 $.getJSON(uaDetails, function(detailsOdj){
+                    detailsOdj.categories.map(function(scoreType, index){
 
+                        var getScoreData = function(scoreType){
+                            var renderCostOfLiving = function(){
+                                $('.costOfLivingHeader').html(scoreType.label);
+                                    
+                                $('.costOfLivingSection').html(scoreType.data.map(function(colCategories){
+                                    var currencyAndFloatHandler = function(colCategories, index){
+                                        if (colCategories.id === 'CONSUMER-PRICE-INDEX-TELESCORE'){
+                                            return colCategories.float_value.toFixed(2)
+                                        } else {
+                                            return '$' + colCategories.currency_dollar_value.toFixed(2)
+                                        }
+                                    }
+                                    var currencyOrFloat = currencyAndFloatHandler(colCategories);
+
+                                    return      '<div class="categoryItem clearfix">' +
+                                                '<p class="categoryTitle left">' + colCategories.label + '</p>' +
+                                                '<p class="categoryDollarAmount right">' + currencyOrFloat + '</p>' +
+                                                '</div>'
+                                    }).sort());
+                                }
+
+                                var renderHousing = function(){
+                                    $('.housingHeader').html(scoreType.label);
+                                    $('.housingSection').html(scoreType.data.map(function(housingCategories){
+                                        if(housingCategories.id === 'APARTMENT-RENT-SMALL' || housingCategories.id === 'APARTMENT-RENT-MEDIUM' || housingCategories.id === 'APARTMENT-RENT-LARGE'){
+                                            return      '<div class="categoryItem clearfix">' +
+                                                        '<p class="categoryTitle left">' + housingCategories.label + '</p>' +
+                                                        '<p class="categoryDollarAmount right">$' + housingCategories.currency_dollar_value + '</p>' +
+                                                        '</div>' 
+                                        } 
+                                    }).sort());
+                                }
+
+                                var renderEducation = function(){
+                                    $('.educationHeader').html(scoreType.label);
+                                    $('.educationSection').html(scoreType.data.map(function(eduCategories){
+                                        if(eduCategories.id === 'UNIVERSITIES-BEST-RANKED-NAME'){
+                                            return      '<div class="categoryItem clearfix">' +
+                                                        '<p class="categoryTitle left">' + eduCategories.label + '</p>' +
+                                                        '<p class="categoryDollarAmount right">' + eduCategories.string_value + '</p>' +
+                                                        '</div>' 
+                                        } else if (eduCategories.id === 'UNIVERSITIES-BEST-RANKED-RANK') {
+                                            return      '<div class="categoryItem clearfix">' +
+                                                        '<p class="categoryTitle left">' + eduCategories.label + '</p>' +
+                                                        '<p class="categoryDollarAmount right">' + eduCategories.int_value + '</p>' +
+                                                        '</div>' 
+                                        } else if (eduCategories.id === 'PISA-DETAIL-HAPPINESS'){
+                                            return      '<div class="categoryItem clearfix">' +
+                                                        '<p class="categoryTitle left">' + eduCategories.label + '</p>' +
+                                                        '<p class="categoryDollarAmount right">' + eduCategories.percent_value.toFixed(2) + '%</p>' +
+                                                        '</div>' 
+                                        }
+                                    }).sort());
+                                }
+
+                                var renderTraffic = function(){
+                                    $('.trafficHeader').html(scoreType.label);
+                                    $('.trafficSection').html(scoreType.data.map(function(trafficCategories){
+                                        if(trafficCategories.id === 'TRAFFIC-INDEX-TELESCORE'){
+                                            return      '<div class="categoryItem clearfix">' +
+                                                        '<p class="categoryTitle left">' + trafficCategories.label + '</p>' +
+                                                        '<p class="categoryDollarAmount right">' + trafficCategories.float_value.toFixed(2) + '</p>' +
+                                                        '</div>' 
+                                        }
+                                    }));
+                                }
+
+                                switch (scoreType.id){
+                                    case "COST-OF-LIVING":
+                                        renderCostOfLiving();
+                                    case "EDUCATION":
+                                        renderEducation();
+                                    case "HOUSING":
+                                        renderHousing();
+                                    case "TRAFFIC":
+                                        renderTraffic();
+                                } // end switch
+                        } // end getScoreData
+                        getScoreData(scoreType);
+                    });
                 });
 
-                var uaImages = urbanAreaObj._links["ua:images"].href;
-                $.getJSON(uaImages, function(imagesOdj, index){
-                    console.log(imagesOdj.photos[0].image.mobile);
+                // var uaImages = urbanAreaObj._links["ua:images"].href;
+                // $.getJSON(uaImages, function(imagesOdj, index){
+                //     console.log(imagesOdj.photos[0].image.mobile);
                     
-                    // $('body').css('background-image', 'url(' + imagesOdj.photos[0].image.mobile + ')');
-                });
+                //     // $('body').css('background-image', 'url(' + imagesOdj.photos[0].image.mobile + ')');
+                // });
 
-                var uaSalaries = urbanAreaObj._links["ua:salaries"].href;
-                $.getJSON(uaSalaries, function(salariesOdj){
+                // var uaSalaries = urbanAreaObj._links["ua:salaries"].href;
+                // $.getJSON(uaSalaries, function(salariesOdj){
 
-                });
+                // });
 
             });
         });
