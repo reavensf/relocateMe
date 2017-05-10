@@ -39,30 +39,26 @@ body {
     color: gold;
 }
 
+.footnote{
+    color: #bbb;
+    font-size: 12px;
+    font-weight: 300;
+}
+
 strong{
     font-weight: bold;
 }
-
-
-.wrapper {
-    background-color: rgba(255,255,255, 0.96);
-    max-width: 1620px;
-    margin: 40px auto;
-    padding: 40px;
-    position: relative;
+input[type="text"]{
+    background-color: rgba(255,255,255, 0.95);
+    display: block;
+    font-size: 28px;
+    margin-right: 5px;
 }
 
-.jobsBlock, .cityStateInfoBlock{
-    width: 50%;
-}
-
-.jobsForm{
-    margin: 0 auto 50px;
-    width: 670px;
-}
 
 button, input[type="text"] {
-  padding: 10px;
+    border: 0;
+    padding: 10px;
 }
 
 button:hover {
@@ -74,24 +70,90 @@ h1{
 }
 
 h2{
-    font-size: 2em;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
     line-height: 1.5em;
+    margin: 0 0 15px 0;
 }
 
 h3{
-    font-size: 1.5em;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0 0 10px 0;
 }
 
 p{
-    line-height: 1.3em;
+    font-size: 14px;
+    line-height: 1.5em;
+    margin: 0 0 10px 0;
+}
+
+main{
+    margin: 0 auto;
+    width: 1024px;
+}
+
+.jobsForm{
+    margin: 0 auto 20px;
+}
+
+.wrapper {
+    background-color: rgba(255,255,255, 0.95);
+    margin-bottom: 40px;
+    padding: 40px;
+    position: relative;
+}
+
+.jobsBlock, .cityStateInfoBlock{
+    width: 50%;
+}
+
+.jobsBlock{
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+}
+
+.jobPost{
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 3px 3px 1px 0px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    padding: 10px;
+    -webkit-box-shadow: 3px 3px 1px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 3px 3px 1px 0px rgba(0,0,0,0.1);
+
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.jobPost:hover{
+    border: 1px solid #eee;
+    box-shadow: 5px 5px 3px 0px rgba(0,0,0,0.05);
+    -webkit-box-shadow: 5px 5px 3px 0px rgba(0,0,0,0.05);
+    -moz-box-shadow: 5px 5px 3px 0px rgba(0,0,0,0.05);
+}
+
+.cityStateInfoBlock{
+    padding-left: 20px;
+}
+
+.summary, .qualityOfLifeScores, .costOfLivingSection, .housingSection, .trafficSection, .educationSection{
+    margin-bottom: 30px;
 }
 
 .scoreMeterBkg{
     background-color: #eee;
+    width: 60%;
 }
 
 .scoreMeter{
     overflow: hidden;
+    padding-left: 5px;
 }
 
 .score{
@@ -143,7 +205,27 @@ p{
     width: 100%;
 }
 
-@media(max-width: 1620px){
+.categoryItem{
+    border-bottom: 2px dashed #ddd;
+    margin-bottom: 10px;
+}
+
+.categoryItem p{
+    margin-bottom: 0;
+    padding-bottom: 2px;
+}
+
+.categoryTitle{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.categoryDollarAmount{
+    font-weight: 600;
+}
+
+@media(max-width: 1000px){
     .wrapper{
         width: 92%
     }

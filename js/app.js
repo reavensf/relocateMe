@@ -12,6 +12,28 @@ var renderLocationInfo = function(){
         $.getJSON(cityInfoLink, function(infoObj){ 
             var urbanArea = infoObj._links["city:urban_area"].href;
 
+            var flickrApi = 'https://api.flickr.com/services/rest/?method=flickr.photos.search';
+            var flickrSearchText = infoObj.full_name.toLowerCase();
+            console.log(flickrSearchText);
+
+            var flickrOptions = {
+                api_key: '4d7e0041250aa7096c1065cd90b2be27',
+                text: flickrSearchText,
+                format: 'json'
+            }
+
+            var renderBackgroundImage = function(data){
+                console.log(data);
+            }
+            renderBackgroundImage();
+            $.getJSON(flickrApi, flickrOptions, renderBackgroundImage);
+
+
+
+
+
+
+
             $.getJSON(urbanArea, function(urbanAreaObj){
                 $('.cityStateInfoBlock h2 .cityName').html(urbanAreaObj.full_name);
 
@@ -23,9 +45,9 @@ var renderLocationInfo = function(){
                         var score = Math.round(scoresOdj.categories[index].score_out_of_10);
                         var scoreClass = getPercentClass(score);
 
-                            return      '<div class="scoreCategory">' +
-                                        '<h3 class="categoryTitle">' + scoresOdj.categories[index].name + '</h3>' +
-                                        '<div class="scoreMeterBkg">' + '<div class="scoreMeter ' + scoreClass +' " style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
+                            return      '<div class="scoreCategory clearfix">' +
+                                        '<h3 class="scoreCategoryTitle left">' + scoresOdj.categories[index].name + '</h3>' +
+                                        '<div class="scoreMeterBkg right">' + '<div class="scoreMeter ' + scoreClass +' " style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
                                         '<p class="score">' + score + '</p>' +
                                         '</div></div>';
                     }));
@@ -168,7 +190,7 @@ var renderJobs = function(){
     var searchTerm          = '&q=' + jobTerm;
     var cityState           = '&l=' + stateTerm + '%2C+' + cityTerm;
     var requiredParams      = '&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
-    var limit               = '&limit=25'
+    var limit               = '&limit=10'
     var indeedSearchUrl     = rootUrl + searchTerm + cityState + requiredParams + limit;
 
     $.ajax({
@@ -188,10 +210,11 @@ var renderJobs = function(){
                             '" target="_blank">' + 
                             data.results[index].jobtitle + 
                             '</a>' + ' - ' +
-                            '<strong>' + data.results[index].company  + '</strong> <span>(' + data.results[index].formattedRelativeTime + ')</span><br>' +
+                            '<strong>' + data.results[index].company  + '</strong> <span>(' +  + ')</span><br>' +
                             data.results[index].formattedLocation + '<br>' +
                             data.results[index].snippet + '<br>' +
                             '</p>' +
+                            '<p>' + data.results[index].formattedRelativeTime + '' +
                             '</div>';
             }));
         }
@@ -200,6 +223,20 @@ var renderJobs = function(){
 
 
  $(document).ready(function(){
+     $('body').vegas({
+        delay: 15000,
+        transitionDuration: 2000,
+        shuffle: true,
+        timer: false,
+        overlay: 'js/vegas/overlays/05.png',
+        slides: [
+            { src: 'images/wallup-28399.jpg' },
+            { src: 'images/wallup-331202.jpg' },
+            { src: 'images/wallup-387707.jpg' },
+            { src: 'images/wallup-387705.jpg' }
+        ]
+    });
+
      $('.jobsForm').submit(function(event){
         event.preventDefault();
 

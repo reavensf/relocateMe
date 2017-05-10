@@ -4,49 +4,56 @@
     <title>relocateMe</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="js/vegas/vegas.min.css">
+    
 
     <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
-    <div class="wrapper">
-        <form class= "jobsForm">
-            <label for="jobField">Enter search item</label><br>
-            <input type="text" class="jobField" placeholder="Find job">
-            <!--<label for="cityField">Enter search item</label>-->
-            <input type="text" class="cityField" placeholder="In what city">
-            <!--<label for="stateField">Enter search item</label>-->
-            <input type="text" class="stateField" placeholder="In what state">
+    <header>
+        <h1>relocateMe</h1>
+    </header>
+    <main>
+        <form class="jobsForm clearfix">
+            <label for="jobField">Enter the job you're looking for </label>
+            <input type="text" class="jobField" placeholder="Find you job...">
+            <input type="text" class="cityField" placeholder="In what city...">
+            <input type="text" class="stateField" placeholder="In what state...">
             <button type="submit" class="submitButton" value="submit">Submit</button>
         </form>
-        <div class="resultsBlock clearfix">
-            <div class="jobsBlock left hidden">
-                <h2>Job Results</h2>
-                <div class="jobResults">
+        <div class="wrapper">
+            <div class="resultsBlock clearfix">
+                <div class="jobsBlock left hidden">
+                    <h2>Job Results</h2>
+                    <div class="jobResults">
 
+                    </div>
+                </div>
+                <div class="cityStateInfoBlock left hidden">
+                    <h2><span class="cityName"></span> Details</h2>
+                    <div class="summary"></div>
+                    <h2>Quality of Life Scores <span class="footnote">(scores out of 10)</span></h2>
+                    <div class="qualityOfLifeScores"></div>
+                    
+                    <h2 class="costOfLivingHeader"></h2>
+                    <div class="costOfLivingSection"></div>
+                    
+                    <h2 class="housingHeader"></h2>
+                    <div class="housingSection"></div>
+                    
+                    <h2 class="trafficHeader"></h2>
+                    <div class="trafficSection"></div>
+                    
+                    <h2 class="educationHeader"></h2>
+                    <div class="educationSection"></div>
                 </div>
             </div>
-            <div class="cityStateInfoBlock left hidden">
-                <h2><span class="cityName"></span> Details</h2>
-                <div class="summary"></div>
-                <h2>Quality of Life Scores</h2>
-                <div class="qualityOfLifeScores"></div>
-                
-                <h2 class="costOfLivingHeader"></h2>
-                <div class="costOfLivingSection"></div>
-                
-                <h2 class="housingHeader"></h2>
-                <div class="housingSection"></div>
-                
-                <h2 class="trafficHeader"></h2>
-                <div class="trafficSection"></div>
-                
-                <h2 class="educationHeader"></h2>
-                <div class="educationSection"></div>
-            </div>
-        </div>
-    </div><!-- end .wrapper -->
+        </div><!-- end .wrapper -->
+    </main>
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="js/vegas/vegas.min.js"></script>
     <script src="js/cities.js"></script>
     <script src="js/app.js"></script>
 </body>
