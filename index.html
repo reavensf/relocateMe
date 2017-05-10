@@ -16,23 +16,26 @@
         <h1>relocateMe</h1>
     </header>
     <main>
-        <form class="jobsForm clearfix">
-            <label for="jobField">Enter the job you're looking for </label>
-            <input type="text" class="jobField" placeholder="Find you job...">
-            <input type="text" class="cityField" placeholder="In what city...">
-            <input type="text" class="stateField" placeholder="In what state...">
-            <button type="submit" class="submitButton" value="submit">Submit</button>
-        </form>
-        <div class="wrapper">
+        <section class="welcomeWrapper">
+            <div class="welcomeText">
+                <p>Hey there! Looking for a <span>job</span> and a reason to <span>relocate</span>? Fill out our <span>form</span> below, and get a list of jobs and the <span>quality of life</span>, <span>cost of living</span>, and <span>more</span> on the city you're looking to <span>relocate</span> to. <span>Enjoy!</span></p>
+            </div>
+            <form class="jobsForm clearfix">
+                <!--<label for="jobField">Enter the job you're looking for </label>-->
+                <input type="text" class="jobField left" placeholder="Find your job...">
+                <input type="text" class="cityField left" placeholder="in what city...">
+                <input type="text" class="stateField left" placeholder="and in what state...">
+                <button type="submit" class="submitButton" value="submit">Submit</button>
+            </form>
+        </section>
+        <div class="resultsWrapper hidden">
             <div class="resultsBlock clearfix">
-                <div class="jobsBlock left hidden">
-                    <h2>Job Results</h2>
-                    <div class="jobResults">
-
-                    </div>
+                <div class="jobsBlock left">
+                    <h2>Job Results<br><span class="footnote">(Powered by: Indeed.com)</span></h2>
+                    <div class="jobResults"></div>
                 </div>
-                <div class="cityStateInfoBlock left hidden">
-                    <h2><span class="cityName"></span> Details</h2>
+                <div class="cityStateInfoBlock left">
+                    <h2><span class="cityName"></span> Details<br><span class="footnote">(Powered by: Teleport.org)</span></h2>
                     <div class="summary"></div>
                     <h2>Quality of Life Scores <span class="footnote">(scores out of 10)</span></h2>
                     <div class="qualityOfLifeScores"></div>

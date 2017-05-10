@@ -12,28 +12,6 @@ var renderLocationInfo = function(){
         $.getJSON(cityInfoLink, function(infoObj){ 
             var urbanArea = infoObj._links["city:urban_area"].href;
 
-            var flickrApi = 'https://api.flickr.com/services/rest/?method=flickr.photos.search';
-            var flickrSearchText = infoObj.full_name.toLowerCase();
-            console.log(flickrSearchText);
-
-            var flickrOptions = {
-                api_key: '4d7e0041250aa7096c1065cd90b2be27',
-                text: flickrSearchText,
-                format: 'json'
-            }
-
-            var renderBackgroundImage = function(data){
-                console.log(data);
-            }
-            renderBackgroundImage();
-            $.getJSON(flickrApi, flickrOptions, renderBackgroundImage);
-
-
-
-
-
-
-
             $.getJSON(urbanArea, function(urbanAreaObj){
                 $('.cityStateInfoBlock h2 .cityName').html(urbanAreaObj.full_name);
 
@@ -203,22 +181,36 @@ var renderJobs = function(){
             // console.log(data);
             $('.jobsBlock .jobResults').html(data.results.map(function(job, index){
                 
-                return      '<div class="jobPost">' + 
-                            '<p>' +
-                            '<a href="' + 
-                            data.results[index].url + 
-                            '" target="_blank">' + 
-                            data.results[index].jobtitle + 
-                            '</a>' + ' - ' +
-                            '<strong>' + data.results[index].company  + '</strong> <span>(' +  + ')</span><br>' +
+                return      '<a href="' + data.results[index].url + '" target="_blank">' + 
+                            '<div class="jobPost clearfix">' + 
+                            '<h3>' + data.results[index].jobtitle + '</h3>' +
+                            '<p> <strong>' + data.results[index].company  + '</strong> - ' +
                             data.results[index].formattedLocation + '<br>' +
-                            data.results[index].snippet + '<br>' +
-                            '</p>' +
-                            '<p>' + data.results[index].formattedRelativeTime + '' +
-                            '</div>';
+                            data.results[index].snippet + '</p>' +
+                            '<p class="footnote right">' + data.results[index].formattedRelativeTime + '</p>' +
+                            '</div></a>';
             }));
         }
     });
+}
+
+var showResultsHandler = function(){
+    $('.welcomeText').fadeOut(300);
+    $('.welcomeWrapper').css('height','auto');
+    $('main').css({ height: '5%' });
+
+    renderJobs();
+    renderLocationInfo();
+
+    setTimeout(function(){
+        $('main').css({
+            display: 'block',
+            height: 'auto',
+        });
+        $('.resultsWrapper').show();
+        
+    }, 700);
+
 }
 
 
@@ -237,14 +229,14 @@ var renderJobs = function(){
         ]
     });
 
-     $('.jobsForm').submit(function(event){
+    $('.jobsForm').submit(function(event){
         event.preventDefault();
 
-        console.log("submit");
+        if ($('.jobField').val() != 'undefined' && !$('.cityField').val() != 'undefined' && !$('.stateField').val() != 'undefined') {
+            console.log("submit");
+            showResultsHandler();
+        } 
 
-            $('.jobsBlock').show();
-            $('.cityStateInfoBlock').show();
-            renderJobs();
-            renderLocationInfo();
+
      });
  });
