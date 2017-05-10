@@ -60,6 +60,7 @@ input[type="text"]{
     display: block;
     font-size: 28px;
     margin-right: 5px;
+    max-width: 300px;
 }
 
 
@@ -84,7 +85,7 @@ h2{
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 20px;
     font-weight: 600;
-    line-height: 1.5em;
+    line-height: 1.1em;
     margin: 0 0 15px 0;
 }
 
@@ -117,7 +118,7 @@ main{
     display: table;
     height: 78%;
     margin: 0 auto;
-    width: 1024px;
+    width: 1000px;
 
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -160,6 +161,7 @@ main{
 
 .jobsForm{
     margin: 0 auto 20px;
+    text-align: center;
 }
 
 .resultsWrapper {
@@ -298,8 +300,27 @@ main{
     font-weight: 600;
 }
 
+.vegas-overlay{
+    opacity: 1;
+}
+
 @media(max-width: 1000px){
-    .wrapper{
-        width: 92%
+    .wrapper, main{
+        width: 92%;
+    }
+
+    input[type="text"]{
+        width: 30%;
+    }
+}
+
+@media(max-width: 480px){
+    .jobsBlock, .cityStateInfoBlock{
+        padding: 0;
+        width: 100%;
+    }
+
+    .jobsBlock{
+        border-right: 0;
     }
 }
