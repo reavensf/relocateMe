@@ -169,6 +169,21 @@ main{
     margin-bottom: 40px;
     padding: 40px;
     position: relative;
+    min-height: 100%;
+}
+
+.loadingIcon {
+    color: rebeccapurple;
+    display: none;
+    left: 0;
+    margin: 0 auto;
+    position: fixed;
+    right: 0;
+    top: 50%;
+}
+
+.iconColor{
+    color: #ddd;
 }
 
 .jobsBlock, .cityStateInfoBlock{
@@ -211,6 +226,23 @@ main{
 
 .jobPost strong{
     font-weight: 600;
+}
+
+.jobPost h3{
+    color: rebeccapurple;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.jobPost:hover h3{
+    font-weight: 400;
+}
+
+.jobPost .fa-external-link{
+    margin-left: 10px;
 }
 
 .cityStateInfoBlock{

@@ -5,9 +5,12 @@ var renderLocationInfo = function(){
     var cityTerm            = $('.cityField').val();
     var searchCities        = '?search=' + cityTerm;
     var teleportSearchUrl   = teleportRootUrl + searchCities + stateTerm;
-
+    //show loading bar
+    $('.loadingIcon').show();
+    //hide Content
+    $('.resultsBlock, .cityStateInfoBlock').hide();
     $.getJSON(teleportSearchUrl, function(data){
-        var cityInfoLink        = data._embedded["city:search-results"][0]._links["city:item"].href;
+        var cityInfoLink = data._embedded["city:search-results"][0]._links["city:item"].href;
 
         $.getJSON(cityInfoLink, function(infoObj){ 
             var urbanArea = infoObj._links["city:urban_area"].href;
@@ -23,12 +26,15 @@ var renderLocationInfo = function(){
                         var score = Math.round(scoresOdj.categories[index].score_out_of_10);
                         var scoreClass = getPercentClass(score);
 
+                        $('.qualityOfLifeHeader').html('<i class="fa fa-trophy" aria-hidden="true"></i> Quality of Life Scores <br><span class="footnote">(scores out of 10)</span>');
+
                             return      '<div class="scoreCategory clearfix">' +
                                         '<h3 class="scoreCategoryTitle left">' + scoresOdj.categories[index].name + '</h3>' +
                                         '<div class="scoreMeterBkg right">' + '<div class="scoreMeter ' + scoreClass +' " style="background-color: ' + scoresOdj.categories[index].color + ';">' + 
                                         '<p class="score">' + score + '</p>' +
                                         '</div></div>';
                     }));
+                    
                 });
 
                 var getPercentClass = function(score){
@@ -61,7 +67,7 @@ var renderLocationInfo = function(){
 
                         var getScoreData = function(scoreType){
                             var renderCostOfLiving = function(){
-                                $('.costOfLivingHeader').html(scoreType.label);
+                                $('.costOfLivingHeader').html('<i class="fa fa-money" aria-hidden="true"></i> ' + scoreType.label);
                                     
                                 $('.costOfLivingSection').html(scoreType.data.map(function(colCategories){
                                     var currencyAndFloatHandler = function(colCategories, index){
@@ -81,7 +87,7 @@ var renderLocationInfo = function(){
                                 }
 
                                 var renderHousing = function(){
-                                    $('.housingHeader').html(scoreType.label);
+                                    $('.housingHeader').html('<i class="fa fa-home" aria-hidden="true"></i> ' + scoreType.label);
                                     $('.housingSection').html(scoreType.data.map(function(housingCategories){
                                         if(housingCategories.id === 'APARTMENT-RENT-SMALL' || housingCategories.id === 'APARTMENT-RENT-MEDIUM' || housingCategories.id === 'APARTMENT-RENT-LARGE'){
                                             return      '<div class="categoryItem clearfix">' +
@@ -93,7 +99,7 @@ var renderLocationInfo = function(){
                                 }
 
                                 var renderEducation = function(){
-                                    $('.educationHeader').html(scoreType.label);
+                                    $('.educationHeader').html('<i class="fa fa-graduation-cap" aria-hidden="true"></i> ' + scoreType.label);
                                     $('.educationSection').html(scoreType.data.map(function(eduCategories){
                                         if(eduCategories.id === 'UNIVERSITIES-BEST-RANKED-NAME'){
                                             return      '<div class="categoryItem clearfix">' +
@@ -115,7 +121,7 @@ var renderLocationInfo = function(){
                                 }
 
                                 var renderTraffic = function(){
-                                    $('.trafficHeader').html(scoreType.label);
+                                    $('.trafficHeader').html('<i class="fa fa-bus" aria-hidden="true"></i> ' + scoreType.label);
                                     $('.trafficSection').html(scoreType.data.map(function(trafficCategories){
                                         if(trafficCategories.id === 'TRAFFIC-INDEX-TELESCORE'){
                                             return      '<div class="categoryItem clearfix">' +
@@ -153,6 +159,11 @@ var renderLocationInfo = function(){
 
                 // });
 
+                //hide loading bar
+                $('.loadingIcon').hide();
+                //show content
+                $('.resultsBlock, .cityStateInfoBlock').show();
+
             });
         });
     });
@@ -182,7 +193,7 @@ var renderJobs = function(){
             $('.jobsBlock .jobResults').html(data.results.map(function(job, index){
                 
                 return      '<a href="' + data.results[index].url + '" target="_blank">' + 
-                            '<div class="jobPost clearfix">' + 
+                            '<div class="jobPost clearfix"> <i class="fa fa-external-link iconColor right" aria-hidden="true"></i>' +
                             '<h3>' + data.results[index].jobtitle + '</h3>' +
                             '<p> <strong>' + data.results[index].company  + '</strong> - ' +
                             data.results[index].formattedLocation + '<br>' +
@@ -199,15 +210,14 @@ var showResultsHandler = function(){
     $('.welcomeWrapper').css('height','auto');
     $('main').css({ height: '5%' });
 
-    renderJobs();
-    renderLocationInfo();
-
     setTimeout(function(){
         $('main').css({
             display: 'block',
             height: 'auto',
         });
         $('.resultsWrapper').show();
+        renderJobs();
+        renderLocationInfo();
         
     }, 700);
 

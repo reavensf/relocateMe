@@ -9,6 +9,7 @@
     
 
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
 </head>
 
 <body>
@@ -29,6 +30,7 @@
             </form>
         </section>
         <div class="resultsWrapper hidden">
+            <i class="loadingIcon fa fa-spinner fa-pulse fa-3x fa-fw"></i>
             <div class="resultsBlock clearfix">
                 <div class="jobsBlock left">
                     <h2>Job Results<br><span class="footnote">(Powered by: Indeed.com)</span></h2>
@@ -37,7 +39,7 @@
                 <div class="cityStateInfoBlock left">
                     <h2><span class="cityName"></span> Details<br><span class="footnote">(Powered by: Teleport.org)</span></h2>
                     <div class="summary"></div>
-                    <h2>Quality of Life Scores <br><span class="footnote">(scores out of 10)</span></h2>
+                    <h2 class="qualityOfLifeHeader"></h2>
                     <div class="qualityOfLifeScores"></div>
                     
                     <h2 class="costOfLivingHeader"></h2>
