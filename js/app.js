@@ -1,14 +1,14 @@
 var renderLocationInfo = function(){
     var teleportRootUrl     = 'https://api.teleport.org/api/cities/'
     var jobTerm             = $('.jobField').val();
-    var stateTerm           = '%2C%20' + $('.stateField').val();
+    // var stateTerm           = '%2C%20' + $('.stateField').val();
     var cityTerm            = $('.cityField').val();
     var searchCities        = '?search=' + cityTerm;
-    var teleportSearchUrl   = teleportRootUrl + searchCities + stateTerm;
+    var teleportSearchUrl   = teleportRootUrl + searchCities;
     //show loading bar
-    $('.loadingIcon').show();
+    $('.location.loadingIcon').show();
     //hide Content
-    $('.resultsBlock, .cityStateInfoBlock').hide();
+    $('.cityStateInfoBlock').hide();
     $.getJSON(teleportSearchUrl, function(data){
         var cityInfoLink = data._embedded["city:search-results"][0]._links["city:item"].href;
 
@@ -160,9 +160,9 @@ var renderLocationInfo = function(){
                 // });
 
                 //hide loading bar
-                $('.loadingIcon').hide();
+                $('.location.loadingIcon').hide();
                 //show content
-                $('.resultsBlock, .cityStateInfoBlock').show();
+                $('.cityStateInfoBlock').show();
 
             });
         });
@@ -177,10 +177,15 @@ var renderJobs = function(){
     var stateTerm           = $('.stateField').val();
     var cityTerm            = $('.cityField').val();
     var searchTerm          = '&q=' + jobTerm;
-    var cityState           = '&l=' + stateTerm + '%2C+' + cityTerm;
+    var cityState           = '&l=' + cityTerm;
     var requiredParams      = '&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
     var limit               = '&limit=10'
     var indeedSearchUrl     = rootUrl + searchTerm + cityState + requiredParams + limit;
+
+    //show loading bar
+    $('.loadingIcon.jobs').show();
+    //hide Content
+    $('.jobsBlock').hide();
 
     $.ajax({
         beforeSend: function(request) {
@@ -200,7 +205,12 @@ var renderJobs = function(){
                             data.results[index].snippet + '</p>' +
                             '<p class="footnote right">' + data.results[index].formattedRelativeTime + '</p>' +
                             '</div></a>';
+
             }));
+            //hide loading bar
+            $('.loadingIcon.jobs').hide();
+            //show content
+            $('.jobsBlock').show();
         }
     });
 }
@@ -239,6 +249,8 @@ var showResultsHandler = function(){
         ]
     });
 
+    TeleportAutocomplete.init('.cityField');
+
     $('.jobsForm').submit(function(event){
         event.preventDefault();
 
@@ -246,7 +258,7 @@ var showResultsHandler = function(){
             console.log("submit");
             showResultsHandler();
         } 
-
+        console.log($('.cityField').val().toLowerCase().replace(/[,. ]+/g, "").trim());
 
      });
  });
