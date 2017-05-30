@@ -90,8 +90,14 @@ button:hover {
     cursor: pointer;
 }
 
+button .fa{
+    text-shadow: 1px 1px rebeccapurple, 2px 2px 3px #555;
+}
+
 h1{
+    font-style: italic;
     margin: 0 0 25px 0;
+    text-shadow: 1px 1px rebeccapurple, 2px 2px 3px #555;
 }
 
 h2{
@@ -163,6 +169,7 @@ main{
     font-size: 40px;
     font-weight: 300;
     text-align: center;
+    text-shadow: 1px 1px rebeccapurple, 2px 2px 3px #555;
 }
 
 .welcomeText p span{
@@ -172,7 +179,7 @@ main{
     padding: 5px;
 }
 
-.jobsForm{
+.jobSearchForm{
     margin: 0 auto 20px;
 }
 
@@ -220,6 +227,11 @@ main{
 .jobsBlock{
     border-right: 1px solid #ddd;
     padding-right: 20px;
+}
+
+.totalJobs{
+    font-size: 13px;
+    margin-bottom: 10px;
 }
 
 .jobPost{
@@ -286,7 +298,7 @@ main{
 }
 
 .scoreMeter{
-    overflow: hidden;
+    overflow: visible;
     padding-left: 5px;
 }
 
@@ -297,6 +309,10 @@ main{
     font-style: italic;
     line-height: 0.7em;
     margin: 0;
+}
+
+.zeroPercent{
+    width: 1%;
 }
 
 .tenPercent{
@@ -372,18 +388,107 @@ main{
         padding: 0 5%;
     }
 
-    input[type="text"]{
-        width: 30%;
+    input[type="text"], .tp-autocomplete, .tp-autocomplete.spinner{
+        width: 45.5%;
+        margin-right: 1%;
     }
+
+    .tp-autocomplete{
+        max-width: 100%;
+    }
+
+    .tp-autocomplete input[type='text']{
+        width: 100%;
+    }
+    .submitButton{
+        width: 7%;
+    }
+
 }
 
 @media(max-width: 1024px){
     .wrapper, main{
         width: 92%;
     }
+
+    .submitButton{
+        background: #000;
+        padding: 10px 0;
+        text-align: center;
+        width: 7%;
+    }
+}
+
+@media(max-width: 768px){
+    .welcomeText{
+        padding: 0 2%;
+    }
+
+    .welcomeText p{
+        font-size: 33px;
+    }
+
+    .onWelcomeScreen input[type="text"], .onWelcomeScreen .tp-autocomplete, .onWelcomeScreen .tp-autocomplete.spinner{
+        width: 43.5%;
+    }
+
+    .onWelcomeScreen .tp-autocomplete input[type="text"]{
+        width: 100%;
+    }
+    
+    .scoreCategoryTitle{
+        font-size: 16px;
+        font-weight: 400;
+        margin-bottom: 5px;
+    }
+
+    .scoreMeterBkg{
+        width: 48%;
+    }
+
+    .categoryTitle{
+        width: 50%;
+    }
+
+    .categoryDollarAmount {
+        width: 50%;
+        text-align: right;
+    }
 }
 
 @media(max-width: 480px){
+    .welcomeText{
+        padding: 0;
+    }
+
+    .welcomeText p{
+        font-size: 24px;
+    }
+
+    input[type="text"]{
+        font-size: 24px;
+        margin-bottom: 10px;
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .onWelcomeScreen input[type="text"], .onWelcomeScreen .tp-autocomplete, .onWelcomeScreen .tp-autocomplete.spinner{
+        width: 100%;
+    }
+
+    .tp-autocomplete{
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .tp-autocomplete.spinner, .submitButton{
+        width: 100%;
+    }
+
+    .resultsWrapper{
+        padding: 40px 15px;
+    }
+
     .jobsBlock, .cityStateInfoBlock{
         padding: 0;
         width: 100%;
@@ -391,5 +496,16 @@ main{
 
     .jobsBlock{
         border-right: 0;
+    }
+    
+    .scoreCategoryTitle{
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 5px;
+    }
+
+    .scoreMeterBkg{
+        margin-bottom: 20px;
+        width: 100%;
     }
 }

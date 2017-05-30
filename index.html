@@ -2,6 +2,8 @@
 
 <head>
     <title>relocateMe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700" rel="stylesheet">
@@ -22,10 +24,9 @@
             <div class="welcomeText">
                 <p>Hey there! Looking for a <span>job</span> and a reason to <span>relocate</span>? Fill out our <span>form</span> below, and get a list of jobs and the <span>quality of life</span>, <span>cost of living</span>, and <span>more</span> on the city you're looking to <span>relocate</span> to. <span>Enjoy!</span></p>
             </div>
-            <form class="jobsForm clearfix">
+            <form class="jobSearchForm clearfix onWelcomeScreen">
                 <input type="text" class="jobField left" placeholder="Find your job...">
                 <input type="text" class="cityField left" placeholder="in what city and state...">
-                <!--<input type="text" class="stateField left" placeholder="and in what state...">-->
                 <button type="submit" class="submitButton"><i class="fa fa-search" aria-hidden="true"></i></button>
             </form>
         </section>
@@ -34,11 +35,12 @@
             <div class="resultsBlock clearfix">
                 <div class="jobsBlock left">
                     <h2>Job Results<br><span class="footnote">(Powered by: Indeed.com)</span></h2>
+                    <p class="totalJobs"></p>
                     <div class="jobResults"></div>
                     <i class="jobs loadingIcon fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                 </div>
                 <div class="cityStateInfoBlock right">
-                    <h2><span class="cityName"></span> Details<br><span class="footnote">(Powered by: Teleport.org)</span></h2>
+                    <h2 class="cityStateInfoBlockTitle"></h2>
                     <i class="location loadingIcon fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                     <div class="summary"></div>
                     <h2 class="qualityOfLifeHeader"></h2>

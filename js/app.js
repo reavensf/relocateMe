@@ -1,3 +1,17 @@
+var clearLocationContent = function(){
+    $('.summary').html('');
+    $('.qualityOfLifeScores').html('');
+    $('.qualityOfLifeHeader').html('');
+    $('.costOfLivingHeader').html('');    
+    $('.costOfLivingSection').html('');
+    $('.housingHeader').html('');
+    $('.housingSection').html('');
+    $('.educationHeader').html('');
+    $('.educationSection').html('');
+    $('.trafficHeader').html('');
+    $('.trafficSection').html('');
+}
+
 var renderLocationInfo = function(){
     var teleportRootUrl     = 'https://api.teleport.org/api/cities/'
     var jobTerm             = $('.jobField').val();
@@ -12,11 +26,25 @@ var renderLocationInfo = function(){
     $.getJSON(teleportSearchUrl, function(data){
         var cityInfoLink = data._embedded["city:search-results"][0]._links["city:item"].href;
 
+
         $.getJSON(cityInfoLink, function(infoObj){ 
-            var urbanArea = infoObj._links["city:urban_area"].href;
+            
+
+            if(!(['city:urban_area'] in infoObj._links)){
+                //hide loading bar
+                $('.location.loadingIcon').hide();
+                //show content
+                $('.cityStateInfoBlock').show();
+
+                clearLocationContent();
+                $('.cityStateInfoBlock h2.cityStateInfoBlockTitle').html('<span class="cityName">' + infoObj.name + '</span> isn\'t a Teleport City yet...<br><span class="footnote">(Powered by: Teleport.org)</span>');
+                
+            } else {
+                var urbanArea = infoObj._links["city:urban_area"].href;
+            }
 
             $.getJSON(urbanArea, function(urbanAreaObj){
-                $('.cityStateInfoBlock h2 .cityName').html(urbanAreaObj.full_name);
+                $('.cityStateInfoBlock h2.cityStateInfoBlockTitle').html('<span class="cityName">' + urbanAreaObj.full_name + '</span> Details<br><span class="footnote">(Powered by: Teleport.org)</span>');
 
                 var uaScores = urbanAreaObj._links["ua:scores"].href;
                 $.getJSON(uaScores, function(scoresOdj){
@@ -39,6 +67,8 @@ var renderLocationInfo = function(){
 
                 var getPercentClass = function(score){
                     switch (score) {
+                        case 0:
+                            return "zeroPercent"
                         case 1:
                             return "tenPercent"
                         case 2:
@@ -182,7 +212,7 @@ var renderJobs = function(){
     var limit               = '&limit=10'
     var indeedSearchUrl     = rootUrl + searchTerm + cityState + requiredParams + limit;
 
-    //show loading bar
+    // show loading bar
     $('.loadingIcon.jobs').show();
     //hide Content
     $('.jobsBlock').hide();
@@ -205,8 +235,9 @@ var renderJobs = function(){
                             data.results[index].snippet + '</p>' +
                             '<p class="footnote right">' + data.results[index].formattedRelativeTime + '</p>' +
                             '</div></a>';
-
             }));
+            $('.totalJobs').html('Total Number of Jobs: ' + data.totalResults);
+
             //hide loading bar
             $('.loadingIcon.jobs').hide();
             //show content
@@ -217,14 +248,17 @@ var renderJobs = function(){
 
 var showResultsHandler = function(){
     $('.welcomeText').fadeOut(300);
-    $('.welcomeWrapper').css('height','auto');
+    $('.welcomeWrapper').css({height: 'auto'});
     $('main').css({ height: '5%' });
+    $('.jobSearchForm').removeClass('onWelcomeScreen');
 
     setTimeout(function(){
         $('main').css({
             display: 'block',
             height: 'auto',
         });
+
+        $('.welcomeWrapper').css({display: 'block'})
         $('.resultsWrapper').show();
         renderJobs();
         renderLocationInfo();
@@ -251,14 +285,14 @@ var showResultsHandler = function(){
 
     TeleportAutocomplete.init('.cityField');
 
-    $('.jobsForm').submit(function(event){
+    $('.jobSearchForm').submit(function(event){
         event.preventDefault();
 
         if ($('.jobField').val() != 'undefined' && !$('.cityField').val() != 'undefined' && !$('.stateField').val() != 'undefined') {
             console.log("submit");
             showResultsHandler();
         } 
-        console.log($('.cityField').val().toLowerCase().replace(/[,. ]+/g, "").trim());
+        console.log($('.cityField').val().toLowerCase().replace(/[,. ]+/g, "-").trim());
 
      });
  });
