@@ -12,11 +12,11 @@ var clearLocationContent = function(){
     $('.trafficSection').html('');
 }
 
-var renderLocationInfo = function(){
+var renderLocationInfo = function(location){
     var teleportRootUrl     = 'https://api.teleport.org/api/cities/'
     var jobTerm             = $('.jobField').val();
     // var stateTerm           = '%2C%20' + $('.stateField').val();
-    var cityTerm            = $('.cityField').val();
+    var cityTerm            = location;
     var searchCities        = '?search=' + cityTerm;
     var teleportSearchUrl   = teleportRootUrl + searchCities;
     //show loading bar
@@ -29,7 +29,6 @@ var renderLocationInfo = function(){
 
         $.getJSON(cityInfoLink, function(infoObj){ 
             
-
             if(!(['city:urban_area'] in infoObj._links)){
                 //hide loading bar
                 $('.location.loadingIcon').hide();
@@ -261,13 +260,14 @@ var showResultsHandler = function(){
         $('.welcomeWrapper').css({display: 'block'})
         $('.resultsWrapper').show();
         renderJobs();
-        renderLocationInfo();
+        renderLocationInfo(searchName);
         
     }, 700);
 
 }
 
 
+ var searchName;
  $(document).ready(function(){
      $('body').vegas({
         delay: 15000,
@@ -282,17 +282,19 @@ var showResultsHandler = function(){
             { src: 'images/wallup-387705.jpg' }
         ]
     });
-
-    TeleportAutocomplete.init('.cityField');
+    TeleportAutocomplete.init('.cityField').on('change', function(locationObj) { 
+        searchName = locationObj.title; 
+        console.log(locationObj);
+        console.log(searchName);
+    }); 
 
     $('.jobSearchForm').submit(function(event){
         event.preventDefault();
 
         if ($('.jobField').val() != 'undefined' && !$('.cityField').val() != 'undefined' && !$('.stateField').val() != 'undefined') {
             console.log("submit");
+            console.log(searchName);
             showResultsHandler();
         } 
-        console.log($('.cityField').val().toLowerCase().replace(/[,. ]+/g, "-").trim());
-
      });
  });
