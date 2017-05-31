@@ -260,14 +260,14 @@ var showResultsHandler = function(){
         $('.welcomeWrapper').css({display: 'block'})
         $('.resultsWrapper').show();
         renderJobs();
-        renderLocationInfo(searchName);
+        renderLocationInfo(locationValue);
         
     }, 700);
 
 }
 
 
- var searchName;
+ var locationValue;
  $(document).ready(function(){
      $('body').vegas({
         delay: 15000,
@@ -283,9 +283,9 @@ var showResultsHandler = function(){
         ]
     });
     TeleportAutocomplete.init('.cityField').on('change', function(locationObj) { 
-        searchName = locationObj.title; 
+        locationValue = locationObj.title; 
         console.log(locationObj);
-        console.log(searchName);
+        console.log(locationValue);
     }); 
 
     $('.jobSearchForm').submit(function(event){
@@ -293,7 +293,7 @@ var showResultsHandler = function(){
 
         if ($('.jobField').val() != 'undefined' && !$('.cityField').val() != 'undefined' && !$('.stateField').val() != 'undefined') {
             console.log("submit");
-            console.log(searchName);
+            console.log(locationValue);
             showResultsHandler();
         } 
      });
