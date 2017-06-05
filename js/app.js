@@ -176,6 +176,9 @@ var renderLocationInfo = function(location){
                     });
                 });
 
+                $('.findOutMoreLink').attr('href', cityURL);
+                $('.findOutMoreLink').html('More info on ' + cityName + ' <i class="fa fa-external-link" aria-hidden="true"></i>');
+
                 // var uaImages = urbanAreaObj._links["ua:images"].href;
                 // $.getJSON(uaImages, function(imagesOdj, index){
                 //     console.log(imagesOdj.photos[0].image.mobile);
@@ -203,10 +206,10 @@ var renderLocationInfo = function(location){
 var renderJobs = function(){
     var rootUrl             = 'https://indeed-indeed.p.mashape.com/apisearch?publisher=4641674221339880';
     var jobTerm             = $('.jobField').val();
-    var stateTerm           = $('.stateField').val();
-    var cityTerm            = $('.cityField').val();
+    var stateTerm           = locationState;
+    var cityTerm            = locationCity;
     var searchTerm          = '&q=' + jobTerm;
-    var cityState           = '&l=' + cityTerm;
+    var cityState           = '&l=' + stateTerm + '%2C+' + cityTerm;
     var requiredParams      = '&userip=1.2.3.4&useragent=Mozilla/%2F4.0%28Firefox%29&v=2&format=json';
     var limit               = '&limit=10'
     var indeedSearchUrl     = rootUrl + searchTerm + cityState + requiredParams + limit;
@@ -268,6 +271,10 @@ var showResultsHandler = function(){
 
 
  var locationValue;
+ var locationCity;
+ var locationState;
+ var cityName;
+ var cityURL;
  $(document).ready(function(){
      $('body').vegas({
         delay: 15000,
@@ -283,7 +290,11 @@ var showResultsHandler = function(){
         ]
     });
     TeleportAutocomplete.init('.cityField').on('change', function(locationObj) { 
-        locationValue = locationObj.title; 
+        locationValue = locationObj.name; 
+        locationCity = locationObj.name; 
+        locationState = locationObj.admin1DivisionCode; 
+        cityName = locationObj.uaName;
+        cityURL = locationObj.uaCityUrl;
         console.log(locationObj);
         console.log(locationValue);
     }); 

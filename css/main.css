@@ -10,6 +10,10 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+a{
+    color: rebeccapurple;
+}
+
 .hidden{
     display: none;
 }
