@@ -12,22 +12,22 @@ var clearLocationContent = function(){
     $('.trafficSection').html('');
 }
 
-var renderLocationInfo = function(location){
-    var teleportRootUrl     = 'https://api.teleport.org/api/cities/'
-    var jobTerm             = $('.jobField').val();
-    // var stateTerm           = '%2C%20' + $('.stateField').val();
-    var cityTerm            = location;
-    var searchCities        = '?search=' + cityTerm;
-    var teleportSearchUrl   = teleportRootUrl + searchCities;
+var renderLocationInfo = function(geoIdValue){
+    var teleportRootUrl     = 'https://api.teleport.org/api/cities/geonameid:'
+    var geoId               = geoIdValue;
+
+    // var searchCities        = '?search=' + geoId;
+    var teleportSearchUrl   = teleportRootUrl + geoId;
+
     //show loading bar
     $('.location.loadingIcon').show();
     //hide Content
     $('.cityStateInfoBlock').hide();
-    $.getJSON(teleportSearchUrl, function(data){
-        var cityInfoLink = data._embedded["city:search-results"][0]._links["city:item"].href;
+
+    
 
 
-        $.getJSON(cityInfoLink, function(infoObj){ 
+        $.getJSON(teleportSearchUrl, function(infoObj){ 
             
             if(!(['city:urban_area'] in infoObj._links)){
                 //hide loading bar
@@ -198,7 +198,6 @@ var renderLocationInfo = function(location){
 
             });
         });
-    });
 }
 
 
@@ -263,14 +262,14 @@ var showResultsHandler = function(){
         $('.welcomeWrapper').css({display: 'block'})
         $('.resultsWrapper').show();
         renderJobs();
-        renderLocationInfo(locationValue);
+        renderLocationInfo(geoIdValue);
         
     }, 700);
 
 }
 
 
- var locationValue;
+ var geoIdValue;
  var locationCity;
  var locationState;
  var cityName;
@@ -290,13 +289,14 @@ var showResultsHandler = function(){
         ]
     });
     TeleportAutocomplete.init('.cityField').on('change', function(locationObj) { 
-        locationValue = locationObj.name; 
+        geoIdValue = locationObj.geonameId; 
+
         locationCity = locationObj.name; 
         locationState = locationObj.admin1DivisionCode; 
         cityName = locationObj.uaName;
         cityURL = locationObj.uaCityUrl;
         console.log(locationObj);
-        console.log(locationValue);
+        // console.log(locationValue);
     }); 
 
     $('.jobSearchForm').submit(function(event){
@@ -304,7 +304,7 @@ var showResultsHandler = function(){
 
         if ($('.jobField').val() != 'undefined' && !$('.cityField').val() != 'undefined' && !$('.stateField').val() != 'undefined') {
             console.log("submit");
-            console.log(locationValue);
+            // console.log(locationValue);
             showResultsHandler();
         } 
      });
