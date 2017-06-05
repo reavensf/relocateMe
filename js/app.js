@@ -13,10 +13,8 @@ var clearLocationContent = function(){
 }
 
 var renderLocationInfo = function(geoIdValue){
-    var teleportRootUrl     = 'https://api.teleport.org/api/cities/geonameid:'
+    var teleportRootUrl     = 'https://api.teleport.org/api/cities/geonameid:';
     var geoId               = geoIdValue;
-
-    // var searchCities        = '?search=' + geoId;
     var teleportSearchUrl   = teleportRootUrl + geoId;
 
     //show loading bar
