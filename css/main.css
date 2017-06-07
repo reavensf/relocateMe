@@ -49,6 +49,10 @@ a{
     font-weight: 300;
 }
 
+.italic{
+    font-style: italic;
+}
+
 strong{
     font-weight: bold;
 }
@@ -223,9 +227,10 @@ main{
     color: #ddd;
 }
 
-.jobsBlock, .cityStateInfoBlock{
+.jobsBlock, .cityStateInfoBlockWrapper{
     position: relative;
     width: 50%;
+    /*height: 100%;*/
 }
 
 .jobsBlock{
@@ -288,7 +293,8 @@ main{
     margin-left: 10px;
 }
 
-.cityStateInfoBlock{
+.cityStateInfoBlockWrapper{
+    border-left: 1px solid #fff;
     padding-left: 20px;
 }
 
