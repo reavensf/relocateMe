@@ -500,12 +500,9 @@ main{
     }
 
     .jobsBlock, .cityStateInfoBlockWrapper{
+        border: 0;
         padding: 0;
         width: 100%;
-    }
-
-    .jobsBlock{
-        border-right: 0;
     }
     
     .scoreCategoryTitle{
