@@ -499,7 +499,7 @@ main{
         padding: 40px 15px;
     }
 
-    .jobsBlock, .cityStateInfoBlock{
+    .jobsBlock, .cityStateInfoBlockWrapper{
         padding: 0;
         width: 100%;
     }
